@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item_details, only: [:edit]
 
   # GET /items
   # GET /items.json
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_save_params)
 
     respond_to do |format|
       if @item.save
@@ -41,7 +42,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_save_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
@@ -67,8 +68,39 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     end
 
+    def item_save_params
+      {
+        title: item_params[:title],
+        detail: detail_json
+      }
+    end
+
+    def detail_json
+      {
+        category: item_params[:detail_category],
+        detail_tags: [
+          item_params[:detail_tags_1],
+          item_params[:detail_tags_2],
+          item_params[:detail_tags_3]
+        ]
+      }.to_json
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:title, :detail)
+      params.permit(
+        :title,
+        :detail_category,
+        :detail_tags_1,
+        :detail_tags_2,
+        :detail_tags_3
+      )
+    end
+
+    def set_item_details
+      @detail_category = item_params[:detail_category]
+      @detail_tags_1 = item_params[:detail_tags_1]
+      @detail_tags_2 = item_params[:detail_tags_2]
+      @detail_tags_3 = item_params[:detail_tags_3]
     end
 end

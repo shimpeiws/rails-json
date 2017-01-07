@@ -1,5 +1,27 @@
 <h1>New Item</h1>
 
-<%= render 'form', item: @item %>
+<%= form_tag("/items") do %>
+  <div>
+    <%= label_tag(:title, "title") %>
+    <%= text_field_tag(:title, @item.title) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_category, "detail_category") %>
+    <%= text_field_tag(:detail_category, @detail_category) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_1, "detail_tags_1") %>
+    <%= text_field_tag(:detail_tags_1, @detail_tags_1) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_2, "detail_tags_2") %>
+    <%= text_field_tag(:detail_tags_2, @detail_tags_2) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_3, "detail_tags_3") %>
+    <%= text_field_tag(:detail_tags_3, @detail_tags_3) %>
+  </div>
+  <%= submit_tag('登録') %>
+<% end %>
 
 <%= link_to 'Back', items_path %>
