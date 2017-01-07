@@ -1,6 +1,28 @@
 <h1>Editing Item</h1>
 
-<%= render 'form', item: @item %>
+<%= form_tag("/items/#{@item.id}", method: 'patch') do %>
+  <div>
+    <%= label_tag(:title, "title") %>
+    <%= text_field_tag(:title, @item.title) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_category, "detail_category") %>
+    <%= text_field_tag(:detail_category, @detail_category) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_1, "detail_tags_1") %>
+    <%= text_field_tag(:detail_tags_1, @detail_tags_1) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_2, "detail_tags_2") %>
+    <%= text_field_tag(:detail_tags_2, @detail_tags_2) %>
+  </div>
+  <div>
+    <%= label_tag(:detail_tags_3, "detail_tags_3") %>
+    <%= text_field_tag(:detail_tags_3, @detail_tags_3) %>
+  </div>
+  <%= submit_tag('更新') %>
+<% end %>
 
 <%= link_to 'Show', @item %> |
 <%= link_to 'Back', items_path %>
