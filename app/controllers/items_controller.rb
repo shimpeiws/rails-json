@@ -78,7 +78,7 @@ class ItemsController < ApplicationController
     def detail_json
       {
         category: item_params[:detail_category],
-        detail_tags: [
+        tags: [
           item_params[:detail_tags_1],
           item_params[:detail_tags_2],
           item_params[:detail_tags_3]
@@ -98,9 +98,11 @@ class ItemsController < ApplicationController
     end
 
     def set_item_details
-      @detail_category = item_params[:detail_category]
-      @detail_tags_1 = item_params[:detail_tags_1]
-      @detail_tags_2 = item_params[:detail_tags_2]
-      @detail_tags_3 = item_params[:detail_tags_3]
+      detail = JSON.parse(@item.detail).symbolize_keys
+      @detail_category = detail[:category]
+      tags = detail[:tags] || []
+      @detail_tags_1 = tags[0]
+      @detail_tags_2 = tags[1]
+      @detail_tags_3 = tags[2]
     end
 end
