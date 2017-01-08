@@ -71,13 +71,13 @@ class ItemsController < ApplicationController
     def item_save_params
       {
         title: item_params[:title],
+        category: item_params[:category],
         detail: detail_json
       }
     end
 
     def detail_json
       {
-        category: item_params[:detail_category],
         tags: [
           item_params[:detail_tags_1],
           item_params[:detail_tags_2],
@@ -90,7 +90,7 @@ class ItemsController < ApplicationController
     def item_params
       params.permit(
         :title,
-        :detail_category,
+        :category,
         :detail_tags_1,
         :detail_tags_2,
         :detail_tags_3
@@ -99,7 +99,6 @@ class ItemsController < ApplicationController
 
     def set_item_details
       detail = JSON.parse(@item.detail).symbolize_keys
-      @detail_category = detail[:category]
       tags = detail[:tags] || []
       @detail_tags_1 = tags[0]
       @detail_tags_2 = tags[1]
