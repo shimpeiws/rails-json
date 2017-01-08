@@ -1,0 +1,15 @@
+---
+$schema: "http://json-schema.org/draft-04/schema#"
+title: "Default"
+type: "object"
+required:
+  - "tags"
+  - "other"
+properties:
+  tags:
+    type: "array"
+    items:
+      type: "string"
+  other:
+    type: "string"
+additionalProperties: false
